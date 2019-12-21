@@ -1,9 +1,11 @@
-hexo-tag-cloudinary [![NPM version][npm-image]][npm-url] [![Dependency Status][depstat-image]][depstat-url]
+hexo-tag-cloudinary [![NPM version][npm-image]][npm-url]
 ================
 
-> Another [Hexo] tag to add an image from [Cloudinary] - with [srcset] support
+**`{% cloudinary about.png alttext %}`**
 
-**Based on [hexo-cloudinary](https://github.com/maliMirkec/hexo-cloudinary) by maliMirkec.**
+[![](https://nodei.co/npm/hexo-tag-cloudinary.png?global=true)](https://nodei.co/npm/hexo-tag-cloudinary)
+
+Based on [hexo-cloudinary](https://github.com/maliMirkec/hexo-cloudinary) by maliMirkec.
 
 ## Install
 
@@ -11,6 +13,12 @@ Install using [npm][npm-url].
 
 ```
 npm install hexo-tag-cloudinary --save
+```
+
+or if you are using GitHub Packages:
+
+```
+npm install @outloudvi/hexo-tag-cloudinary --save
 ```
 
 Install using [yarn][yarn-url].
@@ -57,8 +65,6 @@ cloudinary:
 ## License
 MIT
 
-[![NPM downloads][npm-downloads]][npm-url]
-
 [homepage]: https://github.com/outloudvi/hexo-tag-cloudinary
 [hexo-cloudinary-link]: https://github.com/outloudvi/hexo-tag-cloudinary
 
@@ -69,9 +75,6 @@ MIT
 [npm-downloads]: http://img.shields.io/npm/dm/hexo-tag-cloudinary.svg?style=flat
 
 [yarn-url]: https://yarnpkg.com/en/package/hexo-tag-cloudinary
-
-[depstat-url]: https://gemnasium.com/outloudvi/hexo-tag-cloudinary
-[depstat-image]: http://img.shields.io/gemnasium/outloudvi/hexo-tag-cloudinary-another.svg?style=flat
 
 [Hexo]: http://hexo.io/
 [Cloudinary]: http://cloudinary.com/

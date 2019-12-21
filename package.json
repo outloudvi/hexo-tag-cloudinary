@@ -1,6 +1,6 @@
 {
   "name": "hexo-tag-cloudinary",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Another hexo tag to add an image from cloudinary - with srcset support",
   "main": "index.js",
   "scripts": {
