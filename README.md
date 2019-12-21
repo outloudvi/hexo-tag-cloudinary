@@ -1,42 +1,57 @@
-hexo-cloudinary [![NPM version][npm-image]][npm-url] [![Dependency Status][depstat-image]][depstat-url]
+hexo-tag-cloudinary [![NPM version][npm-image]][npm-url] [![Dependency Status][depstat-image]][depstat-url]
 ================
 
-> [Hexo] tag to add an image from [Cloudinary] - with [srcset] support
+> Another [Hexo] tag to add an image from [Cloudinary] - with [srcset] support
+
+**Based on [hexo-cloudinary](https://github.com/maliMirkec/hexo-cloudinary) by maliMirkec.**
 
 ## Install
 
 Install using [npm][npm-url].
 
 ```
-npm install hexo-cloudinary --save
+npm install hexo-tag-cloudinary --save
 ```
 
 Install using [yarn][yarn-url].
 
 ```
-yarn add hexo-cloudinary
+yarn add hexo-tag-cloudinary
 ```
 
 ## Usage
 
 ```
-{% cloudinary src srcset [alt] [class] %}
+{% cloudinary src [alt] [srcset] [class] %}
 ```
 
 where:
 - src - path to image
+- alt - image title (optional)
 - srcset - srcset sizes in following format
   - small_width=small_cloudinary_transformation_id;big_width=big_cloudinary_transformation_id
-  - default false - no srcset
-- alt - image title (optional)
+  - (empty) - no srcset
 - class - custom class (optional)
+
+## Configurations
+
+In `_config.yml:`
+
+``` yaml
+cloudinary:
+    username: "your_user_name"   # Cloudinary username
+    subdir: "myhexoblogimage"    # sub directory for your images
+    default_srcset: ""           # srcset by default
+```
 
 ## Example
 
-{% cloudinary http://res.cloudinary.com/USER_NAME/image/upload/IMAGE_NAME.png 320px=c_scale,q_auto:good,w_320;640px=c_scale,q_auto:good,w_640 "My image title" "my-image-class" %}
-
+``` nunjucks
+{% cloudinary "about.png" "My image title" "w_300,h_600,c_thumb,g_auto" "ui image" %}
 ```
-<img src="http://res.cloudinary.com/USER_NAME/image/upload/c_scale,q_auto:good,w_640/IMAGE_NAME.png" alt="My image title" srcset="http://res.cloudinary.com/USER_NAME/image/upload/c_scale,q_auto:good,w_320/IMAGE_NAME.png 320w, http://res.cloudinary.com/USER_NAME/image/upload/c_scale,q_auto:good,w_640/IMAGE_NAME.png 640w" sizes="(max-width:320px) 320px,  640px">
+
+``` html
+<p><img class="ui image" src="https:/res.cloudinary.com/USER_NAME/image/upload/w_300,h_600,c_thumb,g_auto/ASSET_DIR/about.png" alt="My image title" ></p>
 ```
 
 ## License
@@ -44,19 +59,19 @@ MIT
 
 [![NPM downloads][npm-downloads]][npm-url]
 
-[homepage]: https://github.com/maliMirkec/hexo-cloudinary
-[hexo-cloudinary-link]: https://github.com/maliMirkec/hexo-cloudinary
+[homepage]: https://github.com/outloudvi/hexo-tag-cloudinary
+[hexo-cloudinary-link]: https://github.com/outloudvi/hexo-tag-cloudinary
 
 [srcset]: https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images
 
-[npm-url]: https://npmjs.org/package/hexo-cloudinary
-[npm-image]: http://img.shields.io/npm/v/hexo-cloudinary.svg?style=flat
-[npm-downloads]: http://img.shields.io/npm/dm/hexo-cloudinary.svg?style=flat
+[npm-url]: https://npmjs.org/package/hexo-tag-cloudinary
+[npm-image]: http://img.shields.io/npm/v/hexo-tag-cloudinary.svg?style=flat
+[npm-downloads]: http://img.shields.io/npm/dm/hexo-tag-cloudinary.svg?style=flat
 
-[yarn-url]: https://yarnpkg.com/en/package/hexo-cloudinary
+[yarn-url]: https://yarnpkg.com/en/package/hexo-tag-cloudinary
 
-[depstat-url]: https://gemnasium.com/maliMirkec/hexo-cloudinary
-[depstat-image]: http://img.shields.io/gemnasium/maliMirkec/hexo-∏cloudinary.svg?style=flat
+[depstat-url]: https://gemnasium.com/outloudvi/hexo-tag-cloudinary
+[depstat-image]: http://img.shields.io/gemnasium/outloudvi/hexo-tag-cloudinary-another.svg?style=flat
 
 [Hexo]: http://hexo.io/
 [Cloudinary]: http://cloudinary.com/

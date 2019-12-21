@@ -1,53 +1,55 @@
-assert = require('assert');
-cloudinaryImage = require('../lib/cloudinarytagrender.js');
-cheerio = require('cheerio')
-var should = require('chai').should()
+const assert = require("assert");
+const render = require("../lib/cloudinarytagrender.js").cloudinaryTagRender;
+const conf = {
+  username: "test",
+  subdir: "",
+  default_srcset: ""
+};
 
-describe('Cheerio', function () {
-    it('cheerio should work', function () {
-        const $ = cheerio.load("<ul id=\"fruits\"><li class=\"apple\">Apple</li><li class=\"orange\">Orange</li><li class=\"pear\">Pear</li></ul>")
-        assert.equal($('.apple').text(), 'Apple')
-    })
-})
-describe('Hexo Cloudinary Image Tag Plugin', function () {
-    it('should return empty if nothing is passed', function () {
-        assert.equal(cloudinaryImage.cloudinaryTagRender(""), '')
-    })
+describe("Hexo Cloudinary Image Tag Plugin", function() {
+  it("should return empty if nothing is passed", function() {
+    assert.equal(render(conf, []), "");
+  });
 
-    it('should return an html image with data-src and the cld-responsive class set', function () {
-        html_tag = cloudinaryImage.cloudinaryTagRender(["http://example.com/image.jpg", "auto=w_auto,c_scale", "alt", "cld-responsive", "true"])
-        const html = cheerio.load(html_tag)
-        assert.equal(html('.cld-responsive').attr('class'), 'cld-responsive')
-        assert.equal(html('.cld-responsive').attr('alt'), 'alt')
-        assert.equal(html('.cld-responsive').attr('data-src'), 'http://example.com/image.jpg')
-    })
+  it("should work in normal cases", function() {
+    assert.equal(
+      render(conf, ["test.png"]),
+      `<p><img src="https:/res.cloudinary.com/test/image/upload/test.png" ></p>`
+    );
+  });
 
-    it('should return an html image with srcset and sizes if the responsive parameter is set to false', function () {
-        imageTitle = 'MyImageTitle'
-        imageClass = 'my-image-class'
-        srcImage = 'http://res.cloudinary.com/USER_NAME/image/upload/IMAGE_NAME.png'
-        size1 = "320px=c_scale,q_auto:good,w_320"
-        size2 = "640px=c_scale,q_auto:good,w_640"
-        html_tag = cloudinaryImage.cloudinaryTagRender([srcImage, size1+';'+size2, imageTitle, imageClass, "false"])
-        const html = cheerio.load(html_tag)
-        assert.equal(html('.cld-responsive').attr('class'), undefined)
-        assert.equal(html('.'+imageClass).attr('class'), imageClass)
-        assert.equal(html('.'+imageClass).attr('alt'), imageTitle)
-        should.exist(html('.'+imageClass).attr('src'))
-    })
+  it("should work with alt and srcset", function() {
+    assert.equal(
+      render(conf, ["test.png", "alt", "g_auto"]),
+      `<p><img src="https:/res.cloudinary.com/test/image/upload/g_auto/test.png" alt="alt" ></p>`
+    );
+  });
 
-    it('should return an html image with srcset and sizes if the responsive parameter is not passed', function () {
-        imageTitle = 'MyImageTitle'
-        imageClass = 'my-image-class'
-        srcImage = 'http://res.cloudinary.com/USER_NAME/image/upload/IMAGE_NAME.png'
-        size1 = "320px=c_scale,q_auto:good,w_320"
-        size2 = "640px=c_scale,q_auto:good,w_640"
-        html_tag = cloudinaryImage.cloudinaryTagRender([srcImage, size1+';'+size2, imageTitle, imageClass])
-        const html = cheerio.load(html_tag)
-        assert.equal(html('.cld-responsive').attr('class'), undefined)
-        assert.equal(html('.'+imageClass).attr('class'), imageClass)
-        assert.equal(html('.'+imageClass).attr('alt'), imageTitle)
-        should.exist(html('.'+imageClass).attr('src'))
-    })
-})
+  it("should work with alt, srcset and custom class", function() {
+    assert.equal(
+      render(conf, ["test.png", "alt", "g_auto", "yummy"]),
+      `<p><img class="yummy" src="https:/res.cloudinary.com/test/image/upload/g_auto/test.png" alt="alt" ></p>`
+    );
+  });
 
+  it("should throw error with no username present in _config.yml", function() {
+    assert.throws(
+      () => {
+        render({}, ["test.png", "alt", "g_auto", "yummy"]);
+      },
+      {
+        name: "Error",
+        message: "A Cloudinary username should be present in _config.yml"
+      }
+    );
+  });
+
+  it("should use the default srcset if not provided", function() {
+    assert.equal(
+      render(Object.assign(conf, {
+          default_srcset: "g_auto"
+      }), ["test.png", "alt", "g_auto"]),
+      `<p><img src="https:/res.cloudinary.com/test/image/upload/g_auto/test.png" alt="alt" ></p>`
+    );
+  });
+});
