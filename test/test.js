@@ -14,21 +14,21 @@ describe("Hexo Cloudinary Image Tag Plugin", function() {
   it("should work in normal cases", function() {
     assert.equal(
       render(conf, ["test.png"]),
-      `<p><img src="https:/res.cloudinary.com/test/image/upload/test.png" ></p>`
+      `<p><img src="https://res.cloudinary.com/test/image/upload/test.png" ></p>`
     );
   });
 
   it("should work with alt and srcset", function() {
     assert.equal(
       render(conf, ["test.png", "alt", "g_auto"]),
-      `<p><img src="https:/res.cloudinary.com/test/image/upload/g_auto/test.png" alt="alt" ></p>`
+      `<p><img src="https://res.cloudinary.com/test/image/upload/g_auto/test.png" alt="alt" ></p>`
     );
   });
 
   it("should work with alt, srcset and custom class", function() {
     assert.equal(
       render(conf, ["test.png", "alt", "g_auto", "yummy"]),
-      `<p><img class="yummy" src="https:/res.cloudinary.com/test/image/upload/g_auto/test.png" alt="alt" ></p>`
+      `<p><img class="yummy" src="https://res.cloudinary.com/test/image/upload/g_auto/test.png" alt="alt" ></p>`
     );
   });
 
@@ -49,7 +49,7 @@ describe("Hexo Cloudinary Image Tag Plugin", function() {
       render(Object.assign(conf, {
           default_srcset: "g_auto"
       }), ["test.png", "alt", "g_auto"]),
-      `<p><img src="https:/res.cloudinary.com/test/image/upload/g_auto/test.png" alt="alt" ></p>`
+      `<p><img src="https://res.cloudinary.com/test/image/upload/g_auto/test.png" alt="alt" ></p>`
     );
   });
 });
