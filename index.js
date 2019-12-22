@@ -11,6 +11,6 @@ const conf = Object.assign(
   hexo.config.cloudinary || {}
 );
 
-hexo.extend.tag.register("cloudinary", (args, content) =>
-  cloudinaryTagRenderer.cloudinaryTagRender(conf, args, content)
+hexo.extend.tag.register("cloudinary", (args) =>
+  cloudinaryTagRenderer.cloudinaryTagRender(conf, args)
 );
